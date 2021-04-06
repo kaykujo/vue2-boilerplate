@@ -70,7 +70,8 @@ class Helper {
 	}
 
 	static validatePassword = (password) => {
-		let pattern = new RegExp(/^(?=.*[\W_])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{12,}$/);
+		// Minimum 7 characters, must include uppercase, lowercase, number and a symbol.
+		let pattern = new RegExp(/^(?=.*[\W_])(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{7,}$/);
 
 		if (!pattern.test(password)) {
 			return false;
