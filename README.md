@@ -1,4 +1,4 @@
-# vue2-boilerplate
+# My boilerplate for Vue 2 project
 
 ## Included packages
 * Bootstrap 5
