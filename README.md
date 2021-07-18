@@ -1,5 +1,12 @@
 # vue2-boilerplate
 
+## Included packages
+* Bootstrap 5
+* Font Awesome 5
+* MomentJS
+* sweetalert2
+* Axios
+
 ## Project setup
 ```
 yarn install
