@@ -2,13 +2,23 @@ import Vue from 'vue'
 import Moment from "moment"
 
 class Helper {
+	static removeDuplicates(array) {
+		return array.filter((value, index, self) => {
+			return self.indexOf(value) === index;
+		})
+	}
+
+	static moment = (args) => {
+		return Moment(args);
+	}
+
 	static formatDate = (date, withTime) => {
 		if (!date) {
 			return ""
 		} else if (withTime) {
-			return Moment(date).format("D MMM YYYY, h:mm A")
+			return this.moment(date).format("D MMM YYYY, h:mm A")
 		} else {
-			return Moment(date).format("D MMM YYYY")
+			return this.moment(date).format("D MMM YYYY")
 		}
 	}
 
@@ -85,7 +95,7 @@ class Helper {
 
 		if (!token) {
 			localStorage.removeItem("token");
-			
+
 			return false;
 		}
 
