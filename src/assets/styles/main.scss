@@ -1,1 +1,68 @@
 @import "~bootstrap/scss/bootstrap.scss";
+
+html,
+body {
+	font-size: 14px;
+	font-weight: 400;
+	// font-family: "Poppins", sans-serif;
+	height: 100%;
+	color: $default;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+	width: 0;
+	height: 0;
+	background: transparent;
+}
+
+.no-pseudo {
+
+	&::before,
+	&::after {
+		display: none;
+	}
+}
+
+.fw-medium {
+	font-weight: $fw-medium !important;
+}
+
+.page-not-found {
+	height: 100vh;
+	width: 100%;
+	// background-image: url(./images/not-found.jpg);
+	background-position: center center;
+	background-size: cover;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	padding: 2rem 3rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&::after {
+		content: "404 Page Not Found";
+		font-size: 2rem;
+		font-weight: $fw-medium;
+		text-align: center;
+		color: $light;
+		background-color: transparentize($color: $dark, $amount: 0.4);
+		padding: 3rem 2rem;
+		border-radius: 0.3rem;
+	}
+}
+
+.clickable {
+	&:hover {
+		cursor: pointer;
+		opacity: 0.5;
+	}
+}
+
+textarea.no-resize {
+	resize: none;
+}
+
+.semi-transparent {
+	opacity: 0.3;
+}
