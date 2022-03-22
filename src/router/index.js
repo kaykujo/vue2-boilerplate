@@ -1,72 +1,41 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
-Vue.use(Router)
+import routes from '@/router/routes'
 
-const homeRoute = 'home'
-const authRoute = 'login'
+Vue.use(VueRouter)
 
-let router = new Router({
-  routes: [{
-    path: '/',
-    name: 'landing',
-    redirect: {
-      name: homeRoute
-    }
-  }, {
-    path: '/',
-    name: 'home',
-    component: () => import('../views/Home.vue'),
-    meta: {
-      requiresAuth: true
-    }
-  }, {
-    path: '/login',
-    name: 'login',
-    component: () => import('../views/Login.vue'),
-    meta: {
-      guest: true,
-      layout: 'empty'
-    }
-  }]
+const router = new VueRouter({
+  mode: 'history',
+  routes
+})
+
+router.afterEach((to, from, next) => {
+  if (!to.matched.some(record => record.meta.dontJumpToTop)) {
+    window.scrollTo(0, 0)
+  }
 })
 
 router.beforeEach((to, from, next) => {
   const tokenIsValid = Vue.Helper.validateToken()
 
-  if (!to.matched.some(record => record.meta.dontJumpToTop)) {
-    window.scrollTo(0, 0)
-  }
-
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresAuth)) { // Logged in user/admin only
     if (!tokenIsValid) {
       next({
-        path: authRoute,
-        params: {
-          nextUrl: to.fullPath
+        name: 'login',
+        query: {
+          returnUrl: to.fullPath
         }
       })
     } else {
-      const user = JSON.parse(localStorage.getItem('user'))
-
-      if (to.matched.some(record => record.meta.isAdmin)) {
-        if (user.isAdmin == 1) {
-          next()
-        } else {
-          next({
-            name: homeRoute
-          })
-        }
-      } else {
-        next()
-      }
+      next()
     }
-  } else if (to.matched.some(record => record.meta.guest)) {
+  } else if (to.matched.some(record => record.meta.guest)) { // Non user only. Eg: Auth pages
     if (!tokenIsValid) {
       next()
     } else {
       next({
-        name: homeRoute
+        name: 'home'
       })
     }
   } else {
