@@ -106,9 +106,9 @@ class Helper {
 
 			return false;
 		} else {
-			let decodedHeader = atob(tokenSplit[0]);
+			let decodedHeader = Buffer.from(tokenSplit[0], "base64");
 
-			if (decodedHeader && JSON.parse(decodedHeader).typ == "JWT") {
+			if (decodedHeader && JSON.parse(decodedHeader.toString()).typ == "JWT") {
 				return true;
 			} else {
 				localStorage.removeItem("token");
