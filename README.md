@@ -2,7 +2,7 @@
 
 ## Included packages
 * Bootstrap 5
-* Font Awesome 5
+* Font Awesome 6
 * MomentJS
 * sweetalert2
 * Axios
